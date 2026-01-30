@@ -1,0 +1,139 @@
+:root {
+  color-scheme: light;
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f5f3ef;
+  color: #2d2a24;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #ffffff, #f5f3ef 55%, #ece6df);
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.card {
+  width: min(760px, 100%);
+  background: #fffdf9;
+  border: 1px solid #e6ded4;
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(50, 40, 20, 0.12);
+  padding: 28px 32px 32px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+.header p {
+  margin: 0;
+  color: #6d6255;
+}
+
+.form {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.field input,
+.provider-row input,
+.provider-row select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d9cfc2;
+  font-size: 14px;
+}
+
+.inline {
+  display: flex;
+  gap: 10px;
+}
+
+.inline.stretch {
+  align-items: stretch;
+}
+
+.token-input {
+  flex: 1;
+}
+
+.hint {
+  margin-top: 6px;
+  color: #8a7b6b;
+  font-size: 12px;
+}
+
+select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d9cfc2;
+  font-size: 14px;
+  background: #fffdf9;
+}
+
+.primary {
+  background: #ea4e2b;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.primary:disabled {
+  background: #e2b4a8;
+  cursor: not-allowed;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px dashed #d9cfc2;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.status {
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.status.ok {
+  background: #f0fff6;
+  border: 1px solid #b7e4c7;
+  color: #1d6b3a;
+}
+
+.status.error {
+  background: #fff1f1;
+  border: 1px solid #f2b8b8;
+  color: #9f1d1d;
+}
+
+.status-detail {
+  margin-top: 6px;
+  word-break: break-all;
+}
+
+@media (max-width: 720px) {
+  .inline {
+    flex-direction: column;
+  }
+}
