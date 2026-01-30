@@ -11,19 +11,19 @@ import (
 
 func main() {
 	addr := getenvDefault("SETUP_LISTEN_ADDR", "0.0.0.0:8188")
-	composeDir := os.Getenv("MOLTBOT_COMPOSE_DIR")
-	containerName := os.Getenv("MOLTBOT_CONTAINER_NAME")
+	composeDir := getenvDefault("OPENCLAW_COMPOSE_DIR", os.Getenv("MOLTBOT_COMPOSE_DIR"))
+	containerName := getenvDefault("OPENCLAW_CONTAINER_NAME", os.Getenv("MOLTBOT_CONTAINER_NAME"))
 
 	if len(os.Args) > 1 && os.Args[1] == "init" {
 		if err := runInit(initOptions{composeDir: composeDir}); err != nil {
 			log.Fatal(err)
 		}
-		log.Print("moltbot.json generated")
+		log.Print("openclaw.json generated")
 		return
 	}
 
 	if composeDir == "" {
-		log.Fatal("MOLTBOT_COMPOSE_DIR is required")
+		log.Fatal("OPENCLAW_COMPOSE_DIR is required")
 	}
 
 	configDir := filepath.Join(composeDir, "data", "conf")

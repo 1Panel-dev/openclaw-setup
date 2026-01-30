@@ -155,13 +155,13 @@ func writeComposeToken(path string, token string) error {
 			continue
 		}
 		key := strings.TrimSpace(parts[0])
-		if key == "CLAWDBOT_GATEWAY_TOKEN" {
-			lines[i] = fmt.Sprintf("CLAWDBOT_GATEWAY_TOKEN=%s", token)
+		if key == "OPENCLAW_GATEWAY_TOKEN" || key == "CLAWDBOT_GATEWAY_TOKEN" {
+			lines[i] = fmt.Sprintf("OPENCLAW_GATEWAY_TOKEN=%s", token)
 			updated = true
 		}
 	}
 	if !updated {
-		lines = append(lines, fmt.Sprintf("CLAWDBOT_GATEWAY_TOKEN=%s", token))
+		lines = append(lines, fmt.Sprintf("OPENCLAW_GATEWAY_TOKEN=%s", token))
 	}
 
 	return os.WriteFile(path, []byte(strings.Join(lines, "\n")), 0o600)

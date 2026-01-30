@@ -1,6 +1,6 @@
 # OpenClaw Setup
 
-一个轻量的 Go + React 工具，用于生成 Moltbot/OpenClaw 的 `moltbot.json` 与 `.env`，并可选择性重启容器。
+一个轻量的 Go + React 工具，用于生成 OpenClaw 的 `openclaw.json` 与 `.env`，并可选择性重启容器。
 
 当前版本：`0.0.1`
 
@@ -31,7 +31,7 @@ go run ./cmd/server
 ```
 
 生成文件：
-- `data/conf/moltbot.json`
+- `data/conf/openclaw.json`
 - `data/conf/.env`
 
 ## 构建

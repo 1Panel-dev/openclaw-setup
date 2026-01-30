@@ -30,7 +30,7 @@ type WriteConfigOnlyOptions struct {
 	WriteEnv       bool
 }
 
-type moltbotConfig struct {
+type openclawConfig struct {
 	Gateway gatewayConfig `json:"gateway"`
 	Agents  agentsConfig  `json:"agents"`
 	Models  *modelsConfig `json:"models,omitempty"`
@@ -101,10 +101,10 @@ func WriteConfigAndEnv(opts WriteOptions) error {
 		return fmt.Errorf("create config dir: %w", err)
 	}
 
-	configPath := filepath.Join(opts.ConfigDir, "moltbot.json")
+	configPath := filepath.Join(opts.ConfigDir, "openclaw.json")
 	envPath := filepath.Join(opts.ConfigDir, ".env")
 
-	cfg := moltbotConfig{
+	cfg := openclawConfig{
 		Gateway: gatewayConfig{
 			Mode: "local",
 			Bind: "lan",
@@ -135,7 +135,7 @@ func WriteConfigAndEnv(opts WriteOptions) error {
 		return fmt.Errorf("write config: %w", err)
 	}
 
-	envLines := []string{fmt.Sprintf("CLAWDBOT_GATEWAY_TOKEN=%s", opts.GatewayToken)}
+	envLines := []string{fmt.Sprintf("OPENCLAW_GATEWAY_TOKEN=%s", opts.GatewayToken)}
 	for _, provider := range opts.Providers {
 		key := strings.TrimSpace(provider.Key)
 		value := strings.TrimSpace(provider.Value)
@@ -168,9 +168,9 @@ func WriteConfigOnly(opts WriteConfigOnlyOptions) error {
 		return fmt.Errorf("create config dir: %w", err)
 	}
 
-	configPath := filepath.Join(opts.ConfigDir, "moltbot.json")
+	configPath := filepath.Join(opts.ConfigDir, "openclaw.json")
 
-	cfg := moltbotConfig{
+	cfg := openclawConfig{
 		Gateway: gatewayConfig{
 			Mode: "local",
 			Bind: "lan",
@@ -227,7 +227,7 @@ func WriteConfigOnly(opts WriteConfigOnlyOptions) error {
 
 	if opts.WriteEnv {
 		envPath := filepath.Join(opts.ConfigDir, ".env")
-		lines := []string{fmt.Sprintf("CLAWDBOT_GATEWAY_TOKEN=%s", opts.GatewayToken)}
+		lines := []string{fmt.Sprintf("OPENCLAW_GATEWAY_TOKEN=%s", opts.GatewayToken)}
 		if strings.TrimSpace(opts.ProviderEnvKey) != "" && strings.TrimSpace(opts.ProviderApiKey) != "" {
 			lines = append(lines, fmt.Sprintf("%s=%s", opts.ProviderEnvKey, opts.ProviderApiKey))
 		}

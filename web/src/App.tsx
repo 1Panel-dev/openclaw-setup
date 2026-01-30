@@ -244,7 +244,7 @@ export default function App() {
       <div className="card">
         <header className="header">
           <h1>OpenClaw 快速配置</h1>
-          <p>生成 moltbot.json 与 .env，无需执行初始化命令。</p>
+          <p>生成 openclaw.json 与 .env，无需执行初始化命令。</p>
         </header>
 
         <form className="form" onSubmit={handleSubmit}>
