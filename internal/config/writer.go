@@ -27,6 +27,7 @@ type WriteConfigOnlyOptions struct {
 	ProviderID     string
 	ProviderEnvKey string
 	ProviderApiKey string
+	BaseUrl        string
 	WriteEnv       bool
 }
 
@@ -193,6 +194,9 @@ func WriteConfigOnly(opts WriteConfigOnlyOptions) error {
 	}
 
 	providerID := strings.ToLower(strings.TrimSpace(opts.ProviderID))
+	if providerID == "ollama" && strings.TrimSpace(opts.BaseUrl) == "" {
+		return fmt.Errorf("ollama base url is required")
+	}
 	if providerID == "deepseek" {
 		cfg.Models = &modelsConfig{
 			Mode: "merge",
@@ -209,6 +213,31 @@ func WriteConfigOnly(opts WriteConfigOnlyOptions) error {
 							Input:         []string{"text"},
 							ContextWindow: 128000,
 							MaxTokens:     8192,
+						},
+					},
+				},
+			},
+		}
+	} else if providerID == "ollama" {
+		modelID := opts.Model
+		if parts := strings.SplitN(opts.Model, "/", 2); len(parts) == 2 {
+			modelID = parts[1]
+		}
+		cfg.Models = &modelsConfig{
+			Mode: "merge",
+			Providers: map[string]modelProvider{
+				"ollama": {
+					ApiKey:  "ollama",
+					BaseUrl: opts.BaseUrl,
+					Api:     "openai-completions",
+					Models: []modelEntry{
+						{
+							ID:            modelID,
+							Name:          modelID,
+							Reasoning:     false,
+							Input:         []string{"text"},
+							ContextWindow: 160000,
+							MaxTokens:     81920,
 						},
 					},
 				},

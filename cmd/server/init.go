@@ -32,9 +32,16 @@ func runInit(opts initOptions) error {
 	provider := normalizeEnvValue(envMap["PROVIDER"])
 	apiKey := normalizeEnvValue(envMap["API_KEY"])
 	model := normalizeEnvValue(envMap["MODEL"])
+	baseUrl := normalizeEnvValue(envMap["BASE_URL"])
 	provider = strings.ToLower(provider)
-	if provider == "" || apiKey == "" || model == "" {
-		return fmt.Errorf(".env must include PROVIDER, API_KEY, and MODEL")
+	if provider == "" || model == "" {
+		return fmt.Errorf(".env must include PROVIDER and MODEL")
+	}
+	if provider != "ollama" && apiKey == "" {
+		return fmt.Errorf(".env must include API_KEY for provider %s", provider)
+	}
+	if provider == "ollama" && baseUrl == "" {
+		return fmt.Errorf(".env must include BASE_URL for provider ollama")
 	}
 
 	providerEnvKey, err := providerEnvKey(provider)
@@ -51,6 +58,7 @@ func runInit(opts initOptions) error {
 		ProviderID:     provider,
 		ProviderEnvKey: providerEnvKey,
 		ProviderApiKey: apiKey,
+		BaseUrl:        baseUrl,
 		WriteEnv:       true,
 	}); err != nil {
 		return err
@@ -98,6 +106,8 @@ func providerEnvKey(provider string) (string, error) {
 		return "QWEN_API_KEY", nil
 	case "zai":
 		return "ZAI_API_KEY", nil
+	case "ollama":
+		return "", nil
 	default:
 		return "", fmt.Errorf("unsupported PROVIDER: %s", provider)
 	}
